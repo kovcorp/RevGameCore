@@ -9,7 +9,6 @@ namespace RevGameCore.Map
 
       List<IRoom> DoorConnectRooms { get; }
 
-
       /**
        * <param name="roomFrom"> the room wehre the door is</param>
        * <returns> the room where the door is open</returns>

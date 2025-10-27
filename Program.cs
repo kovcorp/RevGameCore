@@ -4,7 +4,7 @@ using RevGameCore.GameMotor;
 using RevGameCore.Map;
 
 var map = InitMap();
-var gameContext = new Context(map.Rooms, map.Doors);
+var gameContext = new Context(map);
 
 StoryTeller storyTeller = new StoryTeller(gameContext);
 //ShowStartDemo();

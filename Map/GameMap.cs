@@ -2,6 +2,8 @@
 {
    public class GameMap : IMap
    {
+      public Dictionary<IRoom, List<IDoor>> RoomDoorMap { get; set; } = new();
+
       public List<IRoom> Rooms { get; set; } = [];
       public List<IDoor> Doors { get; set; } = [];
 

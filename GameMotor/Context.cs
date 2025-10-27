@@ -18,6 +18,12 @@ namespace RevGameCore.GameMotor
          ActualPlace = _rooms[0];
       }
 
+      public Context(IMap map)
+      {
+         _rooms = map.Rooms;
+         _doors = map.Doors;
+         ActualPlace = _rooms[0];
+      }
       public void StepInToRoom(string roomNameYouWantToStep)
       {
          var roomToStep = GetRoomByName(roomNameYouWantToStep);
