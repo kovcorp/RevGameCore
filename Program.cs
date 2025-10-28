@@ -55,21 +55,37 @@ while (true)
 IMap InitMap()
 {
    var mapBuilder = GameMap.GetBuilder();
-
-   mapBuilder.AddRooms([
-      new Room("A", "Az A szobában vagy, nincs itt semmi"),
-      new Room("B", "A B szobában vagy csak egy virág van itt"),
-      new Room("C", "A C szoba egy átjáró"),
-      new Room("D", "A D szobában vagy, üres csak tovább vagy vissza mehetsz"),
-      new Room("E", "Az E szobában vagy egy törött boros üveg van a padlón"),
-      new Room("F", "Az F szobában vagy ez zsákutca")]);
-
-   mapBuilder.ConnectRoomsByName("A", "B")
-      .ConnectRoomsByName("A", "D")
-      .ConnectRoomsByName("B", "F")
-      .ConnectRoomsByName("B", "C")
-      .ConnectRoomsByName("C", "E")
-      .ConnectRoomsByName("E", "D");
+   var roomA = new Room("A", "Az A szobában vagy, nincs itt semmi");
+   var roomB = new Room("B", "A B szobában vagy csak egy virág van itt");
+   var roomC = new Room("C", "A C szoba egy átjáró");
+   var roomD = new Room("D", "A D szobában vagy, üres csak tovább vagy vissza mehetsz");
+   var roomE = new Room("E", "Az E szobában vagy egy törött boros üveg van a padlón");
+   var roomF = new Room("F", "Az F szobában vagy ez zsákutca");
+ 
+   mapBuilder.BuildConnections(roomA, [
+      (roomB, new Door("A-B", roomA, roomB)),
+      (roomD, new Door("A-D", roomA, roomD))
+   ]);
+   mapBuilder.BuildConnections(roomB, [
+      (roomA, new Door("B-A", roomB, roomA)),
+      (roomF, new Door("B-F", roomB, roomF)),
+      (roomC, new Door("B-C", roomB, roomC))
+   ]);
+   mapBuilder.BuildConnections(roomC, [
+      (roomB, new Door("C-B", roomC, roomB)),
+      (roomE, new Door("C-E", roomC, roomE))
+   ]);
+   mapBuilder.BuildConnections(roomD, [
+      (roomA, new Door("D-A", roomD, roomA)),
+      (roomE, new Door("D-E", roomD, roomE))
+   ]);
+   mapBuilder.BuildConnections(roomE, [
+      (roomC, new Door("E-C", roomE, roomC)),
+      (roomD, new Door("E-D", roomE, roomD))
+   ]);
+   mapBuilder.BuildConnections(roomF, [
+      (roomB, new Door("F-B", roomF, roomB))
+   ]);
 
    return mapBuilder.Build();
 }

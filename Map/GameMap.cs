@@ -2,10 +2,7 @@
 {
    public class GameMap : IMap
    {
-      public Dictionary<IRoom, List<IDoor>> RoomDoorMap { get; set; } = new();
-
-      public List<IRoom> Rooms { get; set; } = [];
-      public List<IDoor> Doors { get; set; } = [];
+      public Dictionary<IRoom, List<(IRoom target, IDoor ajto)>> Connections { get; set; } = new();
 
       private GameMap()
       { }
@@ -19,39 +16,26 @@
       {
          private readonly IMap myMap = new GameMap();
 
-         public MapBuilder AddRooms(List<IRoom> rooms)
-         {
-            myMap.Rooms.AddRange(rooms);
-            return this;
-         }
+ 
 
-         public MapBuilder ConnectRoomsByName(string roomName, string otherRoomNAme)
+         public  void BuildConnections(Room room, List<(IRoom targetRoom, IDoor ajto)> cons)
          {
-            var room = GetRoomByName(roomName);
-            var otherRoom = GetRoomByName(otherRoomNAme);
-
-            if (room != null && otherRoom != null)
+            if (!((GameMap)myMap).Connections.ContainsKey(room))
             {
-               IDoor d = new Door(room.Name + " - " + otherRoom.Name, room, otherRoom);
-               myMap.Doors.Add(d);
-               room.AddDoor(d);
-               otherRoom.AddDoor(d);
+               ((GameMap)myMap).Connections.Add(room, cons);
             }
             else
-               throw new ArgumentException("oops, no room ... S: ");
-
-            return this;
+            {
+               ((GameMap)myMap).Connections[room].AddRange(cons);
+            }
          }
 
+ 
          public IMap Build()
          {
             return myMap;
          }
 
-         private IRoom? GetRoomByName(string roomName)
-         {
-            return myMap.Rooms.Find(e => e.Name.ToLower().Equals(roomName.ToLower()));
-         }
       }
    }
 }

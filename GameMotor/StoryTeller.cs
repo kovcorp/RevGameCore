@@ -51,10 +51,9 @@ namespace RevGameCore.GameMotor
       private void EnterToRoomHandler(object? sender, RoomChangeEventArgs e)
       {
          var eViaDoor = e.ViaDoor;
-         // present actual palce 
          Console.ForegroundColor = ConsoleColor.Yellow;
          Console.WriteLine("Beléptél az ajtón: " + eViaDoor.Description);
-         Console.WriteLine(context.ActualPlace.Description);
+         Console.WriteLine(e.RoomInto.Description);
 
          Console.ForegroundColor = ConsoleColor.Gray;
       }
