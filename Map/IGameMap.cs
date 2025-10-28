@@ -1,6 +1,4 @@
 ﻿/* Interfaces for the map */
-
-
 namespace RevGameCore.Map
 {
    public interface IDoor
@@ -18,6 +16,6 @@ namespace RevGameCore.Map
 
    public interface IMap
    {
-      Dictionary<IRoom, List<(IRoom target, IDoor ajto)>> Connections { get; }
+      Dictionary<IRoom, List<(IRoom target, IDoor ajto)>> ConnectionsOfRooms { get; }
    }
 }

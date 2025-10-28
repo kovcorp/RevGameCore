@@ -14,11 +14,10 @@ namespace RevGameCore.GameMotor
          private set;
       }
 
-
       public Context(IMap map)
       {
          this.map = map;
-         ActualPlace = this.map.Connections.Keys.First();
+         ActualPlace = this.map.ConnectionsOfRooms.Keys.First();
       }
       public void StepInToRoom(string roomNameYouWantToStep)
       {
@@ -32,20 +31,20 @@ namespace RevGameCore.GameMotor
          }
          else
          {
-            throw new ArgumentException(String.Format("Ebbe a szobába: '{0}' innen nem tudsz menni", roomNameYouWantToStep));
+            throw new ArgumentException($"Ebbe a szobába: '{roomNameYouWantToStep}' innen nem tudsz menni");
          }
       }
 
       public string ListDoorsInRoom()
       {
-         map.Connections.TryGetValue(ActualPlace, out var connections);
+         map.ConnectionsOfRooms.TryGetValue(ActualPlace, out var connections);
 
          return string.Join(", ", connections.Select(o => o.ajto.WhereTheDoorOpens(ActualPlace).Name).ToList());
       }
 
       private List<IDoor> GetDoorsOfRoom(IRoom room)
       {
-         if (map.Connections.TryGetValue(room, out var connections))
+         if (map.ConnectionsOfRooms.TryGetValue(room, out var connections))
          {
             return connections
                 .Where(conn => conn.target == ActualPlace)
@@ -60,10 +59,10 @@ namespace RevGameCore.GameMotor
 
       private Room GetRoomByName(string roomName)
       {
-         var roomByName = map.Connections.Keys.FirstOrDefault(room => room.Name.ToLower() == roomName.ToLower());
+         var roomByName = map.ConnectionsOfRooms.Keys.FirstOrDefault(room => room.Name.ToLower() == roomName.ToLower());
 
          if (roomByName == null)
-            throw new ArgumentException(String.Format("Nincs ilyen szoba: {0}", roomName));
+            throw new ArgumentException($"Nincs ilyen szoba: {roomName}");
 
          return (Room)roomByName;
       }

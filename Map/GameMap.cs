@@ -2,7 +2,7 @@
 {
    public class GameMap : IMap
    {
-      public Dictionary<IRoom, List<(IRoom target, IDoor ajto)>> Connections { get; set; } = new();
+      public Dictionary<IRoom, List<(IRoom target, IDoor ajto)>> ConnectionsOfRooms { get; } = new();
 
       private GameMap()
       { }
@@ -16,21 +16,14 @@
       {
          private readonly IMap myMap = new GameMap();
 
- 
-
-         public  void BuildConnections(Room room, List<(IRoom targetRoom, IDoor ajto)> cons)
+         public void BuildConnections(Room room, List<(IRoom targetRoom, IDoor ajto)> cons)
          {
-            if (!((GameMap)myMap).Connections.ContainsKey(room))
+            if (!myMap.ConnectionsOfRooms.TryAdd(room, cons))
             {
-               ((GameMap)myMap).Connections.Add(room, cons);
-            }
-            else
-            {
-               ((GameMap)myMap).Connections[room].AddRange(cons);
+               myMap.ConnectionsOfRooms[room].AddRange(cons);
             }
          }
 
- 
          public IMap Build()
          {
             return myMap;

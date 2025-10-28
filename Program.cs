@@ -6,7 +6,7 @@ using RevGameCore.Map;
 var map = InitMap();
 var gameContext = new Context(map);
 
-StoryTeller storyTeller = new StoryTeller(gameContext);
+var storyTeller = new StoryTeller(gameContext);
 //ShowStartDemo();
 #endregion
 
@@ -27,7 +27,7 @@ while (true)
 
    Console.Clear();
 
-   if (roomNameToGo != null && roomNameToGo.Equals("xx"))
+   if (roomNameToGo is "xx")
    {
       Console.WriteLine("===== Good By! ======");
       storyTeller.Stop();
@@ -36,12 +36,12 @@ while (true)
 
    try
    {
-      gameContext.StepInToRoom(roomNameToGo);
+      if (roomNameToGo != null)
+         gameContext.StepInToRoom(roomNameToGo);
    }
    catch (ArgumentException e)
    {
       Console.ForegroundColor = ConsoleColor.Red;
-      //Console.WriteLine("Nincs ilyen hely: " + roomNameToGo);
       Console.WriteLine(e.Message);
       Console.ForegroundColor = ConsoleColor.Gray;
       ShowActualPlaceDescription();
@@ -52,16 +52,19 @@ while (true)
 }
 
 #endregion
-IMap InitMap()
+
+static IMap InitMap()
 {
-   var mapBuilder = GameMap.GetBuilder();
    var roomA = new Room("A", "Az A szobában vagy, nincs itt semmi");
    var roomB = new Room("B", "A B szobában vagy csak egy virág van itt");
    var roomC = new Room("C", "A C szoba egy átjáró");
    var roomD = new Room("D", "A D szobában vagy, üres csak tovább vagy vissza mehetsz");
    var roomE = new Room("E", "Az E szobában vagy egy törött boros üveg van a padlón");
    var roomF = new Room("F", "Az F szobában vagy ez zsákutca");
- 
+
+   var mapBuilder = GameMap.GetBuilder();
+
+
    mapBuilder.BuildConnections(roomA, [
       (roomB, new Door("A-B", roomA, roomB)),
       (roomD, new Door("A-D", roomA, roomD))

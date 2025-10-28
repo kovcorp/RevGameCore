@@ -1,7 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="StoryTeller.cs" company="KUKA Deutschland GmbH">
-//   Copyright (c) KUKA Deutschland GmbH 2006 - 2025
-// </copyright>
+// Context of the Game 
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace RevGameCore.GameMotor
@@ -11,8 +9,6 @@ namespace RevGameCore.GameMotor
    public class StoryTeller
    {
       #region Constants and Fields
-
-      private readonly Context context;
 
       private bool running;
 
@@ -24,8 +20,7 @@ namespace RevGameCore.GameMotor
 
       public StoryTeller(Context context)
       {
-         this.context = context;
-         this.context.EnterToRoomEvent += EnterToRoomHandler;
+         context.EnterToRoomEvent += EnterToRoomHandler;
       }
 
       #endregion
