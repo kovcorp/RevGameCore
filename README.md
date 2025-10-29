@@ -6,4 +6,4 @@ Base game map is in the doc folder.
 
 Main entities in the program: 
 
-- [IGameMap interface](.\Map\IGameMap.cs)
+- [IGameMap interface](./Map/IGameMap.cs)
