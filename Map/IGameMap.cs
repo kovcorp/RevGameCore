@@ -17,5 +17,8 @@ namespace RevGameCore.Map
    public interface IMap
    {
       Dictionary<IRoom, List<(IRoom target, IDoor ajto)>> ConnectionsOfRooms { get; }
+
+      public List<IDoor> ListDoorsInTheRoom(IRoom room);
+
    }
 }

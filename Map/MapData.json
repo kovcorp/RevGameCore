@@ -1,0 +1,28 @@
+{
+   "Rooms": [
+      {
+         "Name": "A",
+         "Description": "Az A szobában vagy, nincs itt semmi"
+      },
+      {
+         "Name": "B",
+         "Description": "A B szobában vagy csak egy virág van itt"
+      },
+      {
+         "Name": "C",
+         "Description": "A C szoba egy átjáró"
+      },
+      {
+         "Name": "D",
+         "Description": "A D szobában vagy, üres csak tovább vagy vissza mehetsz"
+      },
+      {
+         "Name": "E",
+         "Description": "Az E szobában vagy egy törött boros üveg van a padlón"
+      },
+      {
+         "Name": "F",
+         "Description": "Az F szobában vagy ez zsákutca"
+      }
+   ]
+}
